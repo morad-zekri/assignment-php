@@ -89,3 +89,5 @@ The environment includes the `phpmyadmin` tool. In order to access it, use the h
 
 #### 5. Running the application
 Use the http://127.0.0.1 URL to access your application
+
+

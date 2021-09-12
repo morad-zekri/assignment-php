@@ -2,12 +2,20 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\KeyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @ApiResource(
+ *     itemOperations={"get","patch","delete"},
+ *      denormalizationContext={
+ *          "groups" = {"write_key"}
+ *     },
+ * )
  * @ORM\Entity(repositoryClass=KeyRepository::class)
  * @ORM\Table(name="`key`")
  * @UniqueEntity("name")
@@ -25,6 +33,7 @@ class Key
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"write_key"})
      *
      * @var string
      */
@@ -59,7 +68,10 @@ class Key
         return $this;
     }
 
-    public function getTranslations(): mixed
+    /**
+     * @return ArrayCollection|mixed
+     */
+    public function getTranslations()
     {
         return $this->translations;
     }

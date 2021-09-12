@@ -41,7 +41,7 @@ You would need to create the following entities (feel free to add or modify them
     - Delete
 - Manage `Key` `Translations`
     - Ability to update `Translation` value for any language for a given key
-- Export all `Keys` and their `Translations` in `.json` or `.yml` format as a `zip` archive
+- Export all `Keys` and their `Translations` in `.json` or `.yaml` format as a `zip` archive
     - `.json` export should have one file per language (e.g. `[language-iso].json`) with the following format:
         ```
         {

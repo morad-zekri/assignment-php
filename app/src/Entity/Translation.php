@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *            "get"
  *     },
  *     itemOperations={
- *         "patch",
+ *         "patch" = {"security"="is_granted('ROLE_WRITE')"},
  *          "get"
  *     }
  * )

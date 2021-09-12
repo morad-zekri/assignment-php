@@ -30,6 +30,10 @@ security:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
 
+    role_hierarchy:
+        ROLE_USER: [ROLE_READ]
+        ROLE_ADMIN: [ROLE_USER, ROLE_WRITE]
+
     access_control:
         - { path: /api/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Allows accessing the Swagger UI
         - { path: ^/authentication_token, roles: IS_AUTHENTICATED_ANONYMOUSLY }

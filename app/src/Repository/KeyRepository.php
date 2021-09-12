@@ -18,4 +18,30 @@ class KeyRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Key::class);
     }
+
+    /**
+     * @param string $delimiter
+     *
+     * @return int|mixed|string
+     */
+    public function getExportKeys($delimiter = '.')
+    {
+        $listKeys = $this->createQueryBuilder('k')
+            ->leftJoin('k.translations', 't')
+            ->leftJoin('t.language', 'l')
+            ->select('k.name as key')
+            ->addSelect('t.textValue as value')
+            ->addSelect('l.name as language')
+            ->addSelect('l.iso')
+            ->getQuery()
+            ->getResult()
+            ;
+
+        $newList = [];
+        foreach ($listKeys as $keyArray) {
+            $newList[$keyArray['language'].$delimiter.$keyArray['iso']][$keyArray['key']] = $keyArray['value'];
+        }
+
+        return $newList;
+    }
 }

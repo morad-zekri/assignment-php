@@ -11,13 +11,23 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     itemOperations={"get","patch","delete"},
+ *     itemOperations={
+ *          "get",
+ *          "patch" = {"security"="is_granted('ROLE_WRITE')"},
+ *          "delete" = {"security"="is_granted('ROLE_WRITE')"}
+ * },
  *     denormalizationContext={
  *          "groups" = {"write_key"}
  *     },
  *     normalizationContext={
  *          "groups" = {"read_key"}
  *     },
+ *     collectionOperations={
+ *          "get",
+ *          "post" = {"security"="is_granted('ROLE_WRITE')"},
+ *          "export_yaml"={"export_yaml"},
+ *          "export_json"={"export_json"}
+ *     }
  * )
  * @ORM\Entity(repositoryClass=KeyRepository::class)
  * @ORM\Table(name="`key`")
@@ -43,7 +53,7 @@ class Key
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Translation::class, mappedBy="keyValue")
+     * @ORM\OneToMany(targetEntity=Translation::class, mappedBy="keyValue", fetch="EAGER")
      * @Groups({"read_key"})
      *
      * @var mixed
@@ -92,11 +102,9 @@ class Key
 
     public function removeTranslation(Translation $translation): self
     {
-        if ($this->translations->removeElement($translation)) {
+        if ($this->translations->removeElement($translation) && $translation->getKeyValue() === $this) {
             // set the owning side to null (unless already changed)
-            if ($translation->getKeyValue() === $this) {
-                $translation->setKeyValue(null);
-            }
+            $translation->setKeyValue(null);
         }
 
         return $this;

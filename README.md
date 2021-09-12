@@ -81,13 +81,64 @@ Bonus: [Linux Post-install](https://docs.docker.com/engine/installation/linux/li
 - Navigate to the project folder using a Terminal
 - Run the `docker-compose up -d` command to bring the containers online
 
-#### 3. Running `composer install`
-After making modifications to `composer.json` you can run the `docker-compose exec php bash -c "php composer.phar install"` command to perform the installation
+#### 3. Running application
+to run the application you can run the `docker-compose exec php make run-app` command to perform the installation
 
 #### 4. Accessing the MySQL database
 The environment includes the `phpmyadmin` tool. In order to access it, use the http://127.0.0.1:8080 URL. Use `mysql` as the Server name, `root` as the User and you can find the password inside the `docker-compose.yml` file.
 
 #### 5. Running the application
-Use the http://127.0.0.1 URL to access your application
+Use the http://127.0.0.1/api/docs URL to access your application
 
+#### 6. Running the tests
+You can run the `docker-compose exec php make test`
 
+#### 7. check quality of code
+
+You can run the `docker-compose exec php make quality`
+
+### 8. how to use the application
+to access the application you need a token you can use one of those options:
+
+##### option 1:
+you go to http://127.0.0.1/authentication_token if you want read/write token
+you can enter these credentials:
+
+`{
+     "username" : "admin",
+     "password" : "admin"
+ }`
+
+or read token:
+
+`{
+     "username" : "user",
+     "password" : "user"
+ }`
+ 
+##### option 2:
+with docker-compose if you want read/write token :
+
+`docker-compose exec php make write-and-read`
+ 
+or read token:
+
+`docker-compose exec php make read`
+
+NOTE: please check space when you copy the token
+
+##### Authorization Bearer :
+
+To use routes you can go to :
+http://127.0.0.1/api/docs and you click on authorize 
+in the top right corner and you past your token like this 
+`Bearer yourTokenGenerated` and you can try all this route via swagger
+
+##### Documentation :
+
+To find all the urls you can go to this doc via swagger :
+**swagger:**  `http://127.0.0.1/api/docs.html`
+
+or redoc Api documentation: 
+
+**redoc:**  `http://127.0.0.1/api/docs?ui=re_doc`

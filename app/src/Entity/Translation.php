@@ -2,10 +2,21 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TranslationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @ApiResource(
+ *     collectionOperations={
+ *            "get"
+ *     },
+ *     itemOperations={
+ *         "patch",
+ *          "get"
+ *     }
+ * )
  * @ORM\Entity(repositoryClass=TranslationRepository::class)
  */
 class Translation
@@ -21,6 +32,7 @@ class Translation
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"read_key"})
      *
      * @var string
      */
@@ -28,6 +40,7 @@ class Translation
 
     /**
      * @ORM\ManyToOne(targetEntity=Language::class, inversedBy="translations")
+     * @Groups({"read_key"})
      *
      * @var mixed
      */

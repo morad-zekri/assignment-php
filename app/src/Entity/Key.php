@@ -12,8 +12,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *     itemOperations={"get","patch","delete"},
- *      denormalizationContext={
+ *     denormalizationContext={
  *          "groups" = {"write_key"}
+ *     },
+ *     normalizationContext={
+ *          "groups" = {"read_key"}
  *     },
  * )
  * @ORM\Entity(repositoryClass=KeyRepository::class)
@@ -33,7 +36,7 @@ class Key
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"write_key"})
+     * @Groups({"write_key", "read_key"})
      *
      * @var string
      */
@@ -41,6 +44,7 @@ class Key
 
     /**
      * @ORM\OneToMany(targetEntity=Translation::class, mappedBy="keyValue")
+     * @Groups({"read_key"})
      *
      * @var mixed
      */

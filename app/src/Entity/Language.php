@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\LanguageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
@@ -27,6 +28,7 @@ class Language
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read_key"})
      *
      * @var string
      */

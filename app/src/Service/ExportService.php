@@ -36,8 +36,6 @@ class ExportService
 
     /**
      * ExportAllController constructor.
-     * @param KeyRepository $keyRepository
-     * @param string $zipFolderDir
      */
     public function __construct(KeyRepository $keyRepository, string $zipFolderDir)
     {
@@ -66,7 +64,6 @@ class ExportService
     }
 
     /**
-     * @param ZipArchive $zip
      * @return mixed
      */
     public function generateJson(ZipArchive $zip)
@@ -84,7 +81,6 @@ class ExportService
     }
 
     /**
-     * @param ZipArchive $zip
      * @return mixed
      */
     public function generateYaml(ZipArchive $zip)

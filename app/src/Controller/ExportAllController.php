@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ExportAllController extends AbstractController
 {
-
     /**
      * @var ExportService
      */
@@ -21,7 +20,6 @@ class ExportAllController extends AbstractController
 
     /**
      * ExportAllController constructor.
-     * @param ExportService $exportService
      */
     public function __construct(ExportService $exportService)
     {

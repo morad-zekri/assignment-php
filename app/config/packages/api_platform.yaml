@@ -1,7 +1,17 @@
 api_platform:
+    # The title of the API.
+    title: 'Lokalise API'
+
+    # The description of the API.
+    description: 'API description'
+    version: '0.0.1'
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     patch_formats:
         json: ['application/merge-patch+json']
     swagger:
         versions: [3]
+        api_keys:
+            bearer:
+                name: Authorization
+                type: header
